@@ -4,11 +4,60 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>QR Code Invoice Data</title>
+    
     <style>
-        body { font-family: Arial, sans-serif; margin: 20px; background-color: #f4f4f4; }
-        .container { background-color: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); max-width: 600px; margin: auto; }
-        h1 { color: #333; border-bottom: 2px solid #eee; padding-bottom: 10px; }
-        pre { white-space: pre-wrap; word-wrap: break-word; background-color: #f9f9f9; padding: 10px; border: 1px solid #eee; border-radius: 4px; }
+        /* CSS Code Starts Here */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f7f6;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+        }
+
+        .container {
+            background-color: #ffffff;
+            padding: 30px;
+            margin-top: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 90%;
+        }
+
+        h1 {
+            color: #007bff;
+            font-size: 24px;
+            border-bottom: 3px solid #007bff;
+            padding-bottom: 15px;
+            margin-top: 0;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        p {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        #data-output {
+            white-space: pre-wrap;
+            word-wrap: break-word; 
+            background-color: #e9ecef;
+            color: #000;
+            padding: 20px;
+            border: 1px solid #ced4da;
+            border-radius: 6px;
+            font-size: 15px;
+            line-height: 1.8;
+        }
+        /* CSS Code Ends Here */
     </style>
 </head>
 <body>
@@ -19,27 +68,19 @@
     </div>
 
     <script>
-        // Function to extract and decode the data from the URL
         function displayQRData() {
-            // Get the entire query string (e.g., "?data=...")
             const params = new URLSearchParams(window.location.search);
             
-            // Check if the 'data' parameter exists
             if (params.has('data')) {
                 const encodedData = params.get('data');
-                
-                // Decode the data (converts %20 back to spaces, %0A back to newlines)
                 const decodedData = decodeURIComponent(encodedData);
-                
-                // Display the result on the page
                 document.getElementById('data-output').textContent = decodedData;
             } else {
                 document.getElementById('data-output').textContent = 
-                    "Error: No 'data' parameter found in the URL.";
+                    "Error: No 'data' parameter found in the URL. Please scan a valid QR code.";
             }
         }
 
-        // Run the function when the page loads
         displayQRData();
     </script>
 </body>
