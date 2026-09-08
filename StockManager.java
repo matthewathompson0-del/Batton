@@ -28,7 +28,7 @@ public class StockManager {
     private static int countStock() {
         int count = 0;
         try {
-            Scanner scFile = new Scanner(new File("stock.txt"));
+            Scanner scFile = new Scanner(new File("Stock.txt"));
             while (scFile.hasNextLine()) {
                 count++;
                 scFile.nextLine();
@@ -49,7 +49,7 @@ public class StockManager {
         }
         StockArr = new Stock[size];
         try {
-            Scanner scFile = new Scanner(new File("stock.txt"));
+            Scanner scFile = new Scanner(new File("Stock.txt"));
             while (scFile.hasNextLine()) {
                 String line = scFile.nextLine();
                 if (line.trim().isEmpty()) {
@@ -117,7 +117,7 @@ public class StockManager {
     }
     public static void saveStockToFile(Stock s) {
     // The 'true' parameter in FileWriter enables Append Mode
-    try (PrintWriter pw = new PrintWriter(new FileWriter("stock.txt", true))) {
+    try (PrintWriter pw = new PrintWriter(new FileWriter("Stock.txt", true))) {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         
         String line = s.getId() + ";" + 

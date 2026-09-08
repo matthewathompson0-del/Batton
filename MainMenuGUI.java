@@ -4,7 +4,7 @@
  */
 package frontend;
 
-import frontend.QRCode.QRCodeManager;
+import frontend.Stock.EditStockGUI;
 import frontend.Users.ManageUsersGUI;
 import frontend.Stock.ManageStockGUI;
 import Backend.User;
@@ -25,12 +25,12 @@ public class MainMenuGUI extends javax.swing.JFrame {
         initComponents();
         lblWelcome.setText("Welcome " + user.getUsername());
         if (user.getPermission().equals("admin")) {
-            btnManageQRCodes.setEnabled(true);
+
             btnManageUsers.setEnabled(true);
             btnLogOut.setEnabled(true);
             //The rest of the permissions need to be added. Once the other guis are built         
         } else if (user.getPermission().equals("storeman")) {
-            btnManageQRCodes.setEnabled(true);
+
             btnLogOut.setEnabled(true);
         }
     }
@@ -50,7 +50,6 @@ public class MainMenuGUI extends javax.swing.JFrame {
         btnManageUsers = new javax.swing.JButton();
         btnLogOut = new javax.swing.JButton();
         btnManageStock = new javax.swing.JButton();
-        btnManageQRCodes = new javax.swing.JButton();
         btnSettings = new javax.swing.JButton();
 
         jMenu1.setText("jMenu1");
@@ -82,13 +81,6 @@ public class MainMenuGUI extends javax.swing.JFrame {
             }
         });
 
-        btnManageQRCodes.setText("QR Code manager");
-        btnManageQRCodes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnManageQRCodesActionPerformed(evt);
-            }
-        });
-
         btnSettings.setText("Settings");
         btnSettings.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -110,12 +102,12 @@ public class MainMenuGUI extends javax.swing.JFrame {
                         .addComponent(btnLogOut, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(17, 17, 17)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(btnManageUsers, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnManageQRCodes, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnManageStock, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(58, 58, 58)
-                        .addComponent(btnSettings)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnManageStock, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(185, 185, 185)
+                                .addComponent(btnSettings))
+                            .addComponent(btnManageUsers, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(125, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -123,14 +115,12 @@ public class MainMenuGUI extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(35, 35, 35)
                 .addComponent(lblWelcome)
-                .addGap(56, 56, 56)
-                .addComponent(btnManageQRCodes)
-                .addGap(18, 18, 18)
+                .addGap(68, 68, 68)
                 .addComponent(btnManageStock)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnManageUsers)
-                    .addComponent(btnSettings))
+                .addComponent(btnManageUsers)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnSettings)
                 .addGap(32, 32, 32)
                 .addComponent(btnLogOut)
                 .addContainerGap(33, Short.MAX_VALUE))
@@ -159,13 +149,6 @@ public class MainMenuGUI extends javax.swing.JFrame {
         mu.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnManageUsersActionPerformed
-
-    private void btnManageQRCodesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageQRCodesActionPerformed
-        // TODO add your handling code here:
-        QRCodeManager cm = new QRCodeManager(user);
-        cm.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_btnManageQRCodesActionPerformed
 
     private void btnSettingsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSettingsActionPerformed
         // TODO add your handling code here:
@@ -211,7 +194,6 @@ public class MainMenuGUI extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLogOut;
-    private javax.swing.JButton btnManageQRCodes;
     private javax.swing.JButton btnManageStock;
     private javax.swing.JButton btnManageUsers;
     private javax.swing.JButton btnSettings;

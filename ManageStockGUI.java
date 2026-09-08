@@ -34,6 +34,7 @@ public class ManageStockGUI extends javax.swing.JFrame {
 
         btnBack = new javax.swing.JButton();
         btnCreateItemStock = new javax.swing.JButton();
+        btnEditStock = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -51,25 +52,35 @@ public class ManageStockGUI extends javax.swing.JFrame {
             }
         });
 
+        btnEditStock.setText("Edit Stock");
+        btnEditStock.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditStockActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(149, 149, 149)
-                        .addComponent(btnBack))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(50, 50, 50)
-                        .addComponent(btnCreateItemStock)))
+                .addGap(149, 149, 149)
+                .addComponent(btnBack)
                 .addContainerGap(179, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(50, 50, 50)
+                .addComponent(btnCreateItemStock)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnEditStock)
+                .addGap(88, 88, 88))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(182, Short.MAX_VALUE)
-                .addComponent(btnCreateItemStock)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnCreateItemStock)
+                    .addComponent(btnEditStock))
                 .addGap(34, 34, 34)
                 .addComponent(btnBack)
                 .addGap(38, 38, 38))
@@ -91,6 +102,13 @@ public class ManageStockGUI extends javax.swing.JFrame {
         cis.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnCreateItemStockActionPerformed
+
+    private void btnEditStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditStockActionPerformed
+        // TODO add your handling code here:
+        EditStockGUI es = new EditStockGUI(user);
+        es.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnEditStockActionPerformed
 
     /**
      * @param args the command line arguments
@@ -133,5 +151,6 @@ public class ManageStockGUI extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnCreateItemStock;
+    private javax.swing.JButton btnEditStock;
     // End of variables declaration//GEN-END:variables
 }

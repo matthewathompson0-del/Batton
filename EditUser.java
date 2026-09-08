@@ -7,9 +7,11 @@ package frontend.Users;
 import Backend.User;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import javax.swing.JOptionPane;
 import javax.swing.RowSorter;
 import javax.swing.SortOrder;
 import javax.swing.table.DefaultTableModel;
@@ -25,6 +27,7 @@ public class EditUser extends javax.swing.JFrame {
      * Creates new form RemoveUsers
      */
     User user;
+
     public EditUser(User inUser) {
         user = inUser;
         initComponents();
@@ -44,6 +47,7 @@ public class EditUser extends javax.swing.JFrame {
         tblUsers = new javax.swing.JTable();
         btnLoad = new javax.swing.JButton();
         btnSave = new javax.swing.JButton();
+        btnDeleteUser = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -86,6 +90,13 @@ public class EditUser extends javax.swing.JFrame {
             }
         });
 
+        btnDeleteUser.setText("Delete");
+        btnDeleteUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteUserActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -96,15 +107,16 @@ public class EditUser extends javax.swing.JFrame {
                         .addGap(21, 21, 21)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(169, 169, 169)
-                        .addComponent(btnBack)))
+                        .addGap(39, 39, 39)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnLoad)
+                                .addGap(55, 55, 55)
+                                .addComponent(btnDeleteUser))
+                            .addComponent(btnBack))
+                        .addGap(83, 83, 83)
+                        .addComponent(btnSave)))
                 .addContainerGap(46, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(39, 39, 39)
-                .addComponent(btnLoad)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnSave)
-                .addGap(91, 91, 91))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -114,7 +126,8 @@ public class EditUser extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnLoad)
-                    .addComponent(btnSave))
+                    .addComponent(btnSave)
+                    .addComponent(btnDeleteUser))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
                 .addComponent(btnBack)
                 .addContainerGap())
@@ -132,7 +145,7 @@ public class EditUser extends javax.swing.JFrame {
 
     private void btnLoadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoadActionPerformed
         // TODO add your handling code here:
-         try {
+        try {
             DefaultTableModel model = (DefaultTableModel) tblUsers.getModel();
 
             Scanner scFile = new Scanner(new File("Users.txt"));
@@ -168,7 +181,99 @@ public class EditUser extends javax.swing.JFrame {
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         // TODO add your handling code here:
+        DefaultTableModel model = (DefaultTableModel) tblUsers.getModel();
+        TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(model);
+        tblUsers.setRowSorter(sorter);
+
+        sorter.setComparator(0, (o1, o2) -> {
+            Integer i1 = Integer.parseInt(o1.toString());
+            Integer i2 = Integer.parseInt(o2.toString());
+            return i1.compareTo(i2);
+        });
+
+        List<RowSorter.SortKey> sortKeys = new ArrayList<>();
+        sortKeys.add(new RowSorter.SortKey(0, SortOrder.ASCENDING));
+        sorter.setSortKeys(sortKeys);
+        sorter.sort();
+        try {
+            PrintWriter pw = new PrintWriter(new File("Users.txt"));
+            int rowCount = model.getRowCount();
+            int coloumbCount = model.getColumnCount();
+
+            for (int i = 0; i < rowCount; i++) {
+                StringBuilder line = new StringBuilder();
+                for (int j = 0; j < coloumbCount; j++) {
+
+                    line.append(model.getValueAt(i, j).toString());
+
+                    if (j < coloumbCount - 1) {
+                        line.append(";");
+                    }
+                }
+
+                pw.println(line.toString());
+            }
+            pw.close();
+
+        } catch (Exception e) {
+            System.out.println("Error Saving");
+        }
+
     }//GEN-LAST:event_btnSaveActionPerformed
+
+    private void btnDeleteUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteUserActionPerformed
+        // TODO add your handling code here:
+        DefaultTableModel model = (DefaultTableModel) tblUsers.getModel();
+        int selectedRow = tblUsers.getSelectedRow();
+        if (selectedRow != -1) {
+            int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this item?", "Confirm", JOptionPane.YES_NO_OPTION);
+            if (confirm == JOptionPane.YES_OPTION) {
+                model.removeRow(selectedRow);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Please select a row to delete");
+        }
+//SORTER
+        TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(model);
+        tblUsers.setRowSorter(sorter);
+
+        sorter.setComparator(0, (o1, o2) -> {
+            Integer i1 = Integer.parseInt(o1.toString());
+            Integer i2 = Integer.parseInt(o2.toString());
+            return i1.compareTo(i2);
+        });
+
+        List<RowSorter.SortKey> sortKeys = new ArrayList<>();
+        sortKeys.add(new RowSorter.SortKey(0, SortOrder.ASCENDING));
+        sorter.setSortKeys(sortKeys);
+        sorter.sort();
+//END OF SORTER        
+
+        try {
+            PrintWriter pw = new PrintWriter(new File("Stock.txt"));
+            int rowCount = model.getRowCount();
+            int coloumbCount = model.getColumnCount();
+
+            for (int i = 0; i < rowCount; i++) {
+                StringBuilder line = new StringBuilder();
+                for (int j = 0; j < coloumbCount; j++) {
+
+                    line.append(model.getValueAt(i, j).toString());
+
+                    if (j < coloumbCount - 1) {
+                        line.append(";");
+                    }
+                }
+
+                pw.println(line.toString());
+            }
+            pw.close();
+
+        } catch (Exception e) {
+            System.out.println("Error Saving");
+        }
+
+    }//GEN-LAST:event_btnDeleteUserActionPerformed
 
     /**
      * @param args the command line arguments
@@ -201,7 +306,7 @@ public class EditUser extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                 User test = new User(0, "TestUsername", "TestPassword", "Admin");
+                User test = new User(0, "TestUsername", "TestPassword", "Admin");
                 new EditUser(test).setVisible(true);
             }
         });
@@ -209,6 +314,7 @@ public class EditUser extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
+    private javax.swing.JButton btnDeleteUser;
     private javax.swing.JButton btnLoad;
     private javax.swing.JButton btnSave;
     private javax.swing.JScrollPane jScrollPane1;

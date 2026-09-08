@@ -22,7 +22,7 @@ public class UserManager {
     private static int countUsers() {
         int count = 0;
         try {
-            Scanner scFile = new Scanner(new File("users.txt"));
+            Scanner scFile = new Scanner(new File("Users.txt"));
             while (scFile.hasNextLine()) {
                 count++;
                 scFile.nextLine();
@@ -43,7 +43,7 @@ public class UserManager {
         }
         userArr = new User[size];
         try {
-            Scanner scFile = new Scanner(new File("users.txt"));
+            Scanner scFile = new Scanner(new File("Users.txt"));
             while (scFile.hasNextLine()) {
                 Scanner scLine = new Scanner(scFile.nextLine()).useDelimiter(";");
                 int idNumber = scLine.nextInt();
@@ -117,7 +117,7 @@ public class UserManager {
 
     public static void saveUsertoFile(User u) {
 
-        try (PrintWriter pw = new PrintWriter(new FileWriter("users.txt", true))) {
+        try (PrintWriter pw = new PrintWriter(new FileWriter("Users.txt", true))) {
 
             String line = u.getIdNumber() + ";" + u.getUsername() + ";" + u.getPassword() + ";" + u.getPermission();
 
@@ -140,6 +140,7 @@ public class UserManager {
         return userArr[userArr.length - 1].getIdNumber();
 
     }
+    
 
    
 }
