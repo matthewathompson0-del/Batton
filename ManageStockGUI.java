@@ -33,6 +33,7 @@ public class ManageStockGUI extends javax.swing.JFrame {
     private void initComponents() {
 
         btnBack = new javax.swing.JButton();
+        btnCreateItemStock = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -43,19 +44,33 @@ public class ManageStockGUI extends javax.swing.JFrame {
             }
         });
 
+        btnCreateItemStock.setText("Create Stock");
+        btnCreateItemStock.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCreateItemStockActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(149, 149, 149)
-                .addComponent(btnBack)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(149, 149, 149)
+                        .addComponent(btnBack))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(50, 50, 50)
+                        .addComponent(btnCreateItemStock)))
                 .addContainerGap(179, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(239, Short.MAX_VALUE)
+                .addContainerGap(182, Short.MAX_VALUE)
+                .addComponent(btnCreateItemStock)
+                .addGap(34, 34, 34)
                 .addComponent(btnBack)
                 .addGap(38, 38, 38))
         );
@@ -69,6 +84,13 @@ public class ManageStockGUI extends javax.swing.JFrame {
         mm.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnBackActionPerformed
+
+    private void btnCreateItemStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateItemStockActionPerformed
+        // TODO add your handling code here:
+        CreateItemStock cis = new CreateItemStock(user);
+        cis.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnCreateItemStockActionPerformed
 
     /**
      * @param args the command line arguments
@@ -101,7 +123,7 @@ public class ManageStockGUI extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                User test = new User("TestUsername", "TestPassword", "Admin");
+                User test = new User(0, "TestUsername", "TestPassword", "Admin");
 
                 new ManageStockGUI(test).setVisible(true);
             }
@@ -110,5 +132,6 @@ public class ManageStockGUI extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
+    private javax.swing.JButton btnCreateItemStock;
     // End of variables declaration//GEN-END:variables
 }

@@ -12,11 +12,17 @@ public class User {
     private String username;
     private String password;
     private String permission;
+    private int idNumber;
 
-    public User(String inUsername, String inPassword, String inPermission) {
+    public User(int inIdNumber, String inUsername, String inPassword, String inPermission) {
+        idNumber = inIdNumber;
         username = inUsername;
         password = inPassword;
         permission = inPermission;
+    }
+
+    public int getIdNumber() {
+        return idNumber;
     }
 
     public String getUsername() {
@@ -31,6 +37,10 @@ public class User {
         return permission;
     }
 
+    public void setIdnumber(int inIdNumber) {
+        idNumber = inIdNumber;
+    }
+
     public void setUsername(String inUsername) {
         username = inUsername;
     }
@@ -42,10 +52,11 @@ public class User {
     public void setAdmin(String inPermission) {
         permission = inPermission;
     }
+    
 
     @Override
     public String toString() {
-        return "User: " + "username: " + username + ", password: " + password + ", permission: " + permission;
+        return idNumber + ";" + username + ";" + password + ";" + permission;
     }
 
 }

@@ -51,6 +51,7 @@ public class MainMenuGUI extends javax.swing.JFrame {
         btnLogOut = new javax.swing.JButton();
         btnManageStock = new javax.swing.JButton();
         btnManageQRCodes = new javax.swing.JButton();
+        btnSettings = new javax.swing.JButton();
 
         jMenu1.setText("jMenu1");
 
@@ -88,6 +89,13 @@ public class MainMenuGUI extends javax.swing.JFrame {
             }
         });
 
+        btnSettings.setText("Settings");
+        btnSettings.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSettingsActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -105,8 +113,10 @@ public class MainMenuGUI extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(btnManageUsers, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnManageQRCodes, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnManageStock, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap(132, Short.MAX_VALUE))
+                            .addComponent(btnManageStock, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(58, 58, 58)
+                        .addComponent(btnSettings)))
+                .addContainerGap(125, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -118,7 +128,9 @@ public class MainMenuGUI extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(btnManageStock)
                 .addGap(18, 18, 18)
-                .addComponent(btnManageUsers)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnManageUsers)
+                    .addComponent(btnSettings))
                 .addGap(32, 32, 32)
                 .addComponent(btnLogOut)
                 .addContainerGap(33, Short.MAX_VALUE))
@@ -155,6 +167,12 @@ public class MainMenuGUI extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnManageQRCodesActionPerformed
 
+    private void btnSettingsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSettingsActionPerformed
+        // TODO add your handling code here:
+        SettingsGUI s = new SettingsGUI(user);
+        s.setVisible(true);
+    }//GEN-LAST:event_btnSettingsActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -185,7 +203,7 @@ public class MainMenuGUI extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                User test = new User("TestUsername", "TestPassword", "Admin");
+                User test = new User(0, "TestUsername", "TestPassword", "Admin");
                 new MainMenuGUI(test).setVisible(true);
             }
         });
@@ -196,6 +214,7 @@ public class MainMenuGUI extends javax.swing.JFrame {
     private javax.swing.JButton btnManageQRCodes;
     private javax.swing.JButton btnManageStock;
     private javax.swing.JButton btnManageUsers;
+    private javax.swing.JButton btnSettings;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JLabel lblWelcome;

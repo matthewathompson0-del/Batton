@@ -205,8 +205,8 @@ public class CreateItemStock extends javax.swing.JFrame {
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         // TODO add your handling code here:\
-        MainMenuGUI mm = new MainMenuGUI(user);
-        mm.setVisible(true);
+        ManageStockGUI ms = new ManageStockGUI(user);
+        ms.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnBackActionPerformed
 
@@ -291,7 +291,7 @@ public class CreateItemStock extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                User test = new User("TestUsername", "TestPassword", "Admin");
+                User test = new User(0, "TestUsername", "TestPassword", "Admin");
                 new CreateItemStock(test).setVisible(true);
             }
         });

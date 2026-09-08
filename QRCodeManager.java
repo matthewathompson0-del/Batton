@@ -346,7 +346,7 @@ public class QRCodeManager extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                User test = new User("TestUsername", "TestPassword", "Admin");
+                 User test = new User(0, "TestUsername", "TestPassword", "Admin");
                 new QRCodeManager(test).setVisible(true);
             }
         });

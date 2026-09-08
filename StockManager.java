@@ -129,7 +129,7 @@ public class StockManager {
         
         pw.print("\n" + line);
         
-        // Very Important: Refresh the internal array so the app knows the new item exists
+       
         loadInfomation(); 
         
     } catch (IOException e) {

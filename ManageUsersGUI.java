@@ -40,8 +40,18 @@ public class ManageUsersGUI extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         btnAddUser.setText("Add User");
+        btnAddUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddUserActionPerformed(evt);
+            }
+        });
 
         btnEditUser.setText("Edit User");
+        btnEditUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditUserActionPerformed(evt);
+            }
+        });
 
         btnBack.setText("Back");
         btnBack.addActionListener(new java.awt.event.ActionListener() {
@@ -87,6 +97,20 @@ public class ManageUsersGUI extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnBackActionPerformed
 
+    private void btnAddUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddUserActionPerformed
+        // TODO add your handling code here:
+        AddUsers ad = new AddUsers(user);
+        ad.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnAddUserActionPerformed
+
+    private void btnEditUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditUserActionPerformed
+        // TODO add your handling code here:
+        EditUser ed =  new EditUser(user);
+        ed.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnEditUserActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -117,7 +141,7 @@ public class ManageUsersGUI extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                User test = new User("TestUsername", "TestPassword", "Admin");
+                User test = new User(0, "TestUsername", "TestPassword", "Admin");
                 new ManageUsersGUI(test).setVisible(true);
             }
         });

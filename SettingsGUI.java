@@ -6,21 +6,24 @@ package frontend;
 
 import Backend.User;
 import Backend.UserManager;
+import java.awt.Color;
 
 /**
  *
  * @author matth
  */
-
 public class SettingsGUI extends javax.swing.JFrame {
 
     /**
      * Creates new form SettingsGUI
      */
     User user;
+
     public SettingsGUI(User inUser) {
         user = inUser;
         initComponents();
+
+       
     }
 
     /**
@@ -35,10 +38,10 @@ public class SettingsGUI extends javax.swing.JFrame {
         psfNewPassword = new javax.swing.JPasswordField();
         btnChangePassword = new javax.swing.JButton();
         btnBack = new javax.swing.JButton();
+        lblConfirmation = new javax.swing.JLabel();
+        chxShowPassword = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        psfNewPassword.setText("jPasswordField1");
 
         btnChangePassword.setText("Change password");
         btnChangePassword.addActionListener(new java.awt.event.ActionListener() {
@@ -48,6 +51,18 @@ public class SettingsGUI extends javax.swing.JFrame {
         });
 
         btnBack.setText("Back");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
+
+        chxShowPassword.setText("Show Password");
+        chxShowPassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chxShowPasswordActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -58,11 +73,16 @@ public class SettingsGUI extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnBack)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(psfNewPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                        .addGap(72, 72, 72)
                         .addComponent(btnChangePassword)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblConfirmation, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(psfNewPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
+                                .addComponent(chxShowPassword)))
                         .addGap(103, 103, 103))))
         );
         layout.setVerticalGroup(
@@ -71,9 +91,13 @@ public class SettingsGUI extends javax.swing.JFrame {
                 .addGap(123, 123, 123)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(psfNewPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(chxShowPassword))
+                .addGap(33, 33, 33)
+                .addComponent(lblConfirmation, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnBack)
                     .addComponent(btnChangePassword))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 94, Short.MAX_VALUE)
-                .addComponent(btnBack)
                 .addGap(37, 37, 37))
         );
 
@@ -83,9 +107,35 @@ public class SettingsGUI extends javax.swing.JFrame {
     private void btnChangePasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangePasswordActionPerformed
         // TODO add your handling code here:
         String newPassword = String.valueOf(psfNewPassword.getPassword());
-        
-        UserManager.changePassword(user.getIdNumber(), newPassword);
+        if (newPassword.contains(" ") || newPassword.contains("#") || newPassword.contains(";")) {
+            lblConfirmation.setForeground(Color.red);
+            lblConfirmation.setText("Your new Password cannot contain any spaces, # or ;");
+        } else if (newPassword.isBlank()) {
+            lblConfirmation.setForeground(Color.red);
+            lblConfirmation.setText("Please enter a password");
+        } else {
+            lblConfirmation.setForeground(Color.black);
+            lblConfirmation.setText("Succesfully created your new password");
+            UserManager.changePassword(user.getIdNumber(), newPassword);
+        }
+
     }//GEN-LAST:event_btnChangePasswordActionPerformed
+
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        // TODO add your handling code here:
+        MainMenuGUI mm = new MainMenuGUI(user);
+        mm.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnBackActionPerformed
+
+    private void chxShowPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chxShowPasswordActionPerformed
+        // TODO add your handling code here:
+               if (chxShowPassword.isSelected()) {
+           psfNewPassword.setEchoChar((char) 0);
+        } else {
+            psfNewPassword.setEchoChar('•');
+        }
+    }//GEN-LAST:event_chxShowPasswordActionPerformed
 
     /**
      * @param args the command line arguments
@@ -117,7 +167,7 @@ public class SettingsGUI extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                 User test = new User(0, "TestUsername", "TestPassword", "Admin");
+                User test = new User(0, "TestUsername", "TestPassword", "Admin");
                 new SettingsGUI(test).setVisible(true);
             }
         });
@@ -126,6 +176,8 @@ public class SettingsGUI extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnChangePassword;
+    private javax.swing.JCheckBox chxShowPassword;
+    private javax.swing.JLabel lblConfirmation;
     private javax.swing.JPasswordField psfNewPassword;
     // End of variables declaration//GEN-END:variables
 }
